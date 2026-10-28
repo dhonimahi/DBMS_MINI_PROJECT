@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2d8d66"/><stop offset="1" stop-color="#123d32"/></linearGradient>
+    <radialGradient id="leaf" cx="35%" cy="25%"><stop stop-color="#d8ff78"/><stop offset=".55" stop-color="#9bcf54"/><stop offset="1" stop-color="#3d7748"/></radialGradient>
+    <radialGradient id="orange" cx="30%" cy="25%"><stop stop-color="#ffd97a"/><stop offset=".55" stop-color="#ff9e2f"/><stop offset="1" stop-color="#d95a2b"/></radialGradient>
+    <radialGradient id="apple" cx="30%" cy="20%"><stop stop-color="#ff8176"/><stop offset=".58" stop-color="#e64b3d"/><stop offset="1" stop-color="#993025"/></radialGradient>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e7fbde"/><stop offset="1" stop-color="#8abf9c"/></linearGradient>
+    <filter id="shadow"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="760" height="430" rx="38" fill="url(#bg)"/>
+  <circle cx="650" cy="40" r="170" fill="#b8ef65" opacity=".09"/><circle cx="80" cy="390" r="180" fill="#78d1ae" opacity=".08"/>
+  <path d="M55 330c80-78 158-82 238-30 70 46 146 29 221-22 57-39 109-42 188-13" fill="none" stroke="#d8ff9d" stroke-opacity=".12" stroke-width="2"/>
+  <ellipse cx="403" cy="355" rx="216" ry="38" fill="#06251c" opacity=".35" filter="url(#shadow)"/>
+  <!-- fruit bowl -->
+  <ellipse cx="400" cy="292" rx="205" ry="62" fill="#06251c" opacity=".22" filter="url(#soft)"/>
+  <path d="M190 267c20 106 103 132 211 132s188-26 208-132Z" fill="url(#bowl)"/>
+  <path d="M190 267c38 58 119 76 211 76s173-18 208-76c-14 4-32 7-47 7H237c-19 0-34-2-47-7Z" fill="#efffe6" opacity=".75"/>
+  <ellipse cx="400" cy="267" rx="210" ry="66" fill="#154f40"/>
+  <ellipse cx="400" cy="254" rx="204" ry="58" fill="#b8d7b4"/>
+  <!-- oranges -->
+  <circle cx="292" cy="207" r="79" fill="#8a4b21" opacity=".25"/><circle cx="290" cy="194" r="76" fill="url(#orange)"/><ellipse cx="268" cy="171" rx="25" ry="13" fill="#fff" opacity=".18"/>
+  <circle cx="500" cy="204" r="73" fill="#8a4b21" opacity=".22"/><circle cx="498" cy="192" r="70" fill="url(#orange)"/><ellipse cx="477" cy="170" rx="23" ry="12" fill="#fff" opacity=".17"/>
+  <!-- apple -->
+  <circle cx="399" cy="178" r="82" fill="#783127" opacity=".22"/><circle cx="399" cy="165" r="79" fill="url(#apple)"/><ellipse cx="374" cy="140" rx="28" ry="14" fill="#fff" opacity=".16"/>
+  <path d="M401 91c3-27 15-45 36-55" fill="none" stroke="#493a21" stroke-width="10" stroke-linecap="round"/><path d="M429 51c30-11 59 2 68 27-31 12-54 6-68-27Z" fill="url(#leaf)"/>
+  <!-- leaves -->
+  <path d="M190 236c-45-33-47-76-10-101 49 23 52 66 10 101Z" fill="url(#leaf)"/><path d="M188 229c-5-34-3-61 4-83" fill="none" stroke="#dfffa9" stroke-opacity=".5" stroke-width="3"/>
+  <path d="M590 238c41-30 49-69 17-99-46 18-57 59-17 99Z" fill="url(#leaf)"/><path d="M589 229c9-34 13-58 12-78" fill="none" stroke="#dfffa9" stroke-opacity=".45" stroke-width="3"/>
+  <!-- floating data chips -->
+  <g transform="translate(90 85) rotate(-7)"><rect width="126" height="58" rx="18" fill="#fff" opacity=".94"/><circle cx="27" cy="29" r="10" fill="#baf06a"/><path d="M23 29l3 3 6-7" fill="none" stroke="#236045" stroke-width="2"/><text x="46" y="26" fill="#1c4032" font-family="Arial" font-size="13" font-weight="700">Freshness</text><text x="46" y="43" fill="#668477" font-family="Arial" font-size="11">Protected</text></g>
+  <g transform="translate(585 78) rotate(8)"><rect width="112" height="58" rx="18" fill="#fff" opacity=".94"/><circle cx="27" cy="29" r="10" fill="#ffcf70"/><text x="46" y="26" fill="#1c4032" font-family="Arial" font-size="13" font-weight="700">7 days</text><text x="46" y="43" fill="#668477" font-family="Arial" font-size="11">Smart alerts</text></g>
+</svg>

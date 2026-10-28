@@ -116,6 +116,16 @@ export default async function Home() {
         action={<Link className="btn" href="/inventory">+ Add inventory</Link>}
       />
       {error && <div className="notice">{error}</div>}
+      <section className="dashboard-hero">
+        <div className="hero-copy">
+          <span className="hero-kicker">TODAY&apos;S FOOD HEALTH</span>
+          <strong>Your inventory is looking fresh.</strong>
+          <p>{data.riskCount ? `${data.riskCount} batches need attention this week.` : 'No batches need attention this week.'}</p>
+          <Link href="/inventory">Explore inventory <span>→</span></Link>
+        </div>
+        <div className="hero-art" role="img" aria-label="Fresh fruit arranged in a bowl" />
+        <div className="hero-glow" />
+      </section>
       <div className="cards">
         <div className="card">
           <div className="metric-label">Active batches</div>
