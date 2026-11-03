@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
 import { logEvent } from '@/lib/mongo';
+import { authorizationError, requireRole } from '@/lib/auth';
 
 type InventoryUpdate = {
   quantity?: unknown;
@@ -22,6 +23,8 @@ function isDate(value: unknown): value is string {
 }
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+  const user = await requireRole(request, ['admin', 'staff']);
+  if (!user) return authorizationError();
   const id = Number(params.id);
   if (!Number.isSafeInteger(id) || id < 1) {
     return NextResponse.json({ error: 'Inventory batch ID is invalid.' }, { status: 400 });

@@ -30,10 +30,15 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   connectionTimeoutMillis: 5000
 });
+let testSession = '';
+
+async function authenticatedHeaders(headers = {}) {
+  return { ...headers, Cookie: testSession };
+}
 
 async function fetchPage(path) {
   for (let attempt = 0; attempt < 4; attempt++) {
-    const response = await fetch(new URL(path, baseUrl));
+    const response = await fetch(new URL(path, baseUrl), { headers: testSession ? { Cookie: testSession } : {} });
     if (response.status !== 404 || attempt === 3) return response;
     await new Promise(resolve => setTimeout(resolve, 250 * (attempt + 1)));
   }
@@ -42,6 +47,14 @@ async function fetchPage(path) {
 
 test('FreshTrack read-only integration and validation checks', async t => {
   assert.ok(process.env.DATABASE_URL, 'DATABASE_URL must be configured in .env.local');
+  const login = await fetch(new URL('/api/auth/login', baseUrl), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'admin@freshtrack.local', password: 'Admin123!' })
+  });
+  assert.equal(login.status, 200, 'demo admin login should succeed');
+  testSession = login.headers.get('set-cookie')?.split(';', 1)[0] || '';
+  assert.ok(testSession, 'login should create a session cookie');
 
   const counts = async () => {
     const result = await pool.query(`
@@ -63,12 +76,12 @@ test('FreshTrack read-only integration and validation checks', async t => {
       }
     });
 
-    const inventoryResponse = await fetch(new URL('/api/inventory', baseUrl));
+    const inventoryResponse = await fetch(new URL('/api/inventory', baseUrl), { headers: await authenticatedHeaders() });
     assert.equal(inventoryResponse.status, 200);
     const inventory = await inventoryResponse.json();
     assert.ok(Array.isArray(inventory));
 
-    const wasteResponse = await fetch(new URL('/api/waste', baseUrl));
+    const wasteResponse = await fetch(new URL('/api/waste', baseUrl), { headers: await authenticatedHeaders() });
     assert.equal(wasteResponse.status, 200);
     const waste = await wasteResponse.json();
     assert.ok(Array.isArray(waste));
@@ -86,7 +99,7 @@ test('FreshTrack read-only integration and validation checks', async t => {
         pool.query('SELECT COUNT(*)::int AS count FROM inventory_batches WHERE quantity > 0 AND expiry_date <= CURRENT_DATE + 7'),
         pool.query("SELECT COALESCE(SUM(estimated_loss), 0)::numeric::text AS amount FROM waste_records WHERE wasted_at >= CURRENT_DATE - INTERVAL '30 days'")
       ]);
-      const response = await fetch(new URL('/', baseUrl));
+      const response = await fetch(new URL('/', baseUrl), { headers: await authenticatedHeaders() });
       const html = await response.text();
       assert.equal(response.status, 200);
       assert.match(html, new RegExp(`Active batches</div><div class="metric">${stock.rows[0].count}</div>`));
@@ -133,7 +146,7 @@ test('FreshTrack read-only integration and validation checks', async t => {
       for (const request of invalidRequests) {
         const response = await fetch(new URL(request.url, baseUrl), {
           method: request.method,
-          headers: { 'Content-Type': 'application/json' },
+          headers: await authenticatedHeaders({ 'Content-Type': 'application/json' }),
           body: JSON.stringify(request.body)
         });
         assert.equal(response.status, 400, `${request.url} should reject invalid input`);
@@ -151,7 +164,7 @@ test('FreshTrack read-only integration and validation checks', async t => {
 
       const response = await fetch(new URL('/api/waste', baseUrl), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: await authenticatedHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({
           product_id: productId,
           quantity: 999999999999,

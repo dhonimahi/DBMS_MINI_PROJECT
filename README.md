@@ -59,4 +59,10 @@ db.inventory_events.aggregate([{$group:{_id:'$type',count:{$sum:1}}}])
 ## Report and testing
 See [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md), [`docs/DATABASE_DESIGN.md`](docs/DATABASE_DESIGN.md), [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md), [`docs/VIVA_NOTES.md`](docs/VIVA_NOTES.md) and [`sql/important_queries.sql`](sql/important_queries.sql). [`sql/dml_demo.sql`](sql/dml_demo.sql) demonstrates insert/update/delete on temporary sample rows and ends with `ROLLBACK`; keep that rollback. The SQL transaction example also rolls back its update. Seed records are synthetic and intended for demonstration. Before final submission, run every test and replace the team details with your actual information.
 
-The project currently has no automated test runner. Use the test plan for manual checks. The `lint` script requires an ESLint configuration and ESLint package, which are not currently included.
+## Demo accounts
+After running `sql/seed.sql`, sign in with:
+
+- Admin: `admin@freshtrack.local` / `Admin123!`
+- Staff: `staff@freshtrack.local` / `Staff123!`
+
+Admin and staff accounts both manage inventory. Replace demo credentials before deployment.

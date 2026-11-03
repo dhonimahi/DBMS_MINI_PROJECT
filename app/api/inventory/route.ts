@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query, pool } from '@/lib/db';
 import { logEvent } from '@/lib/mongo';
+import { authorizationError, requireRole } from '@/lib/auth';
 
 type InventoryInput = {
   name?: unknown;
@@ -69,6 +70,8 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const user = await requireRole(request, ['admin', 'staff']);
+  if (!user) return authorizationError();
   let body: unknown;
   try {
     body = await request.json();

@@ -21,3 +21,9 @@ FROM products p
 JOIN inventory_batches b ON b.product_id=p.id AND b.supplier='City Dairy'
 WHERE p.name='Fresh Milk'
 AND NOT EXISTS(SELECT 1 FROM waste_records WHERE notes='Sample demonstration record');
+
+-- Demo authentication accounts. Replace these passwords before public deployment.
+INSERT INTO app_users(full_name,email,password_hash,role) VALUES
+ ('FreshTrack Admin','admin@freshtrack.local','$2a$10$trwkbIFnizdpZTpj0fPlSetA3APmdS9GQ09WhLEtGS5Z03iDJNaD2','admin'),
+ ('FreshTrack Staff','staff@freshtrack.local','$2a$10$VRRVRiTrM6XuKayxmwcKNemky6N2U93Ysf0mKrnbV8fgN5bN2u6a6','staff')
+ON CONFLICT(email) DO UPDATE SET full_name=EXCLUDED.full_name,password_hash=EXCLUDED.password_hash,role=EXCLUDED.role;

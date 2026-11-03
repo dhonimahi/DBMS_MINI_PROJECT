@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FreshTrack Database Diagrams</title>
+  <style>
+    @page { size: A4 landscape; margin: 8mm; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; color: #111; background: #fff; }
+    .page {
+      width: 277mm;
+      height: 194mm;
+      page-break-after: always;
+      position: relative;
+      padding: 8mm 10mm;
+      overflow: hidden;
+    }
+    .page:last-child { page-break-after: auto; }
+    header { text-align: center; border-bottom: 2px solid #111; padding-bottom: 3mm; }
+    h1 { margin: 0; font-size: 19pt; }
+    .meta { margin-top: 2mm; font-size: 9pt; }
+    svg { width: 100%; height: 154mm; display: block; margin-top: 4mm; }
+    text { fill: #111; font-family: Arial, sans-serif; }
+    .table { fill: #fff; stroke: #111; stroke-width: 1.5; }
+    .table-name { fill: #cfefff; stroke: #111; stroke-width: 1; }
+    .attribute { fill: #fff; stroke: #111; stroke-width: 1; }
+    .red { stroke: #d71920; stroke-width: 1.6; fill: none; }
+    .black { stroke: #111; stroke-width: 1.8; fill: none; }
+    .entity { fill: #d9f5ef; stroke: #111; stroke-width: 1.8; }
+    .weak-entity { fill: #fff; stroke: #111; stroke-width: 1.8; }
+    .relationship { fill: #fff0d0; stroke: #111; stroke-width: 1.8; }
+    .attribute-line { fill: #fff; stroke: #111; stroke-width: 1.1; }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page">
+    <header>
+      <h1>FreshTrack - Smart Food Expiry and Waste Prediction System</h1>
+      <div class="meta">
+        ER Diagram &nbsp; | &nbsp; Team member 1: Bhuvan Raj H (PES1UG25CS808) &nbsp; | &nbsp;
+        Team member 2: Tanmay Sridhar (PES1UG25CS849)
+      </div>
+    </header>
+    <svg viewBox="0 0 1080 620" role="img" aria-label="FreshTrack ER diagram">
+      <!-- Products -->
+      <rect class="entity" x="405" y="235" width="130" height="46"/>
+      <text x="470" y="264" text-anchor="middle" font-size="16" font-weight="bold">PRODUCTS</text>
+      <path class="attribute-line" d="M470 235 V206" />
+      <ellipse class="attribute-line" cx="470" cy="192" rx="44" ry="14"/><text x="470" y="196" text-anchor="middle" font-size="12" text-decoration="underline">id</text>
+      <ellipse class="attribute-line" cx="360" cy="192" rx="50" ry="14"/><text x="360" y="196" text-anchor="middle" font-size="12">name</text><path class="attribute-line" d="M470 235 L360 206"/>
+      <ellipse class="attribute-line" cx="580" cy="192" rx="50" ry="14"/><text x="580" y="196" text-anchor="middle" font-size="12">category</text><path class="attribute-line" d="M470 235 L580 206"/>
+
+      <!-- Inventory batches -->
+      <rect class="entity" x="65" y="410" width="220" height="48"/>
+      <text x="175" y="440" text-anchor="middle" font-size="15" font-weight="bold">INVENTORY BATCHES</text>
+      <polygon class="relationship" points="175,320 255,355 175,390 95,355"/>
+      <text x="175" y="350" text-anchor="middle" font-size="14">HAS</text>
+      <text x="175" y="366" text-anchor="middle" font-size="11">1</text>
+      <text x="175" y="402" text-anchor="middle" font-size="11">n</text>
+      <path class="black" d="M405 258 H175 V320"/>
+      <path class="black" d="M175 390 V410"/>
+      <ellipse class="attribute-line" cx="175" cy="550" rx="44" ry="14"/><text x="175" y="554" text-anchor="middle" font-size="12" text-decoration="underline">id</text><path class="attribute-line" d="M175 458 V536"/>
+      <ellipse class="attribute-line" cx="65" cy="555" rx="52" ry="14"/><text x="65" y="559" text-anchor="middle" font-size="12">product_id</text>
+      <ellipse class="attribute-line" cx="285" cy="555" rx="44" ry="14"/><text x="285" y="559" text-anchor="middle" font-size="12">quantity</text>
+      <path class="attribute-line" d="M175 458 L65 541 M175 458 L285 541"/>
+
+      <!-- Waste records -->
+      <rect class="entity" x="790" y="410" width="180" height="48"/>
+      <text x="880" y="440" text-anchor="middle" font-size="15" font-weight="bold">WASTE RECORDS</text>
+      <polygon class="relationship" points="880,320 960,355 880,390 800,355"/>
+      <text x="880" y="350" text-anchor="middle" font-size="14">IDENTIFIES</text>
+      <text x="880" y="366" text-anchor="middle" font-size="11">1</text>
+      <text x="880" y="402" text-anchor="middle" font-size="11">n</text>
+      <path class="black" d="M535 258 H880 V320"/>
+      <path class="black" d="M880 390 V410"/>
+      <ellipse class="attribute-line" cx="880" cy="550" rx="44" ry="14"/><text x="880" y="554" text-anchor="middle" font-size="12" text-decoration="underline">id</text><path class="attribute-line" d="M880 458 V536"/>
+      <ellipse class="attribute-line" cx="770" cy="555" rx="52" ry="14"/><text x="770" y="559" text-anchor="middle" font-size="12">product_id</text>
+      <ellipse class="attribute-line" cx="990" cy="555" rx="44" ry="14"/><text x="990" y="559" text-anchor="middle" font-size="12">quantity</text>
+      <path class="attribute-line" d="M880 458 L770 541 M880 458 L990 541"/>
+
+      <!-- App users -->
+      <rect class="entity" x="405" y="55" width="130" height="46"/>
+      <text x="470" y="84" text-anchor="middle" font-size="16" font-weight="bold">APP USERS</text>
+      <ellipse class="attribute-line" cx="470" cy="20" rx="44" ry="13"/><text x="470" y="24" text-anchor="middle" font-size="12" text-decoration="underline">id</text><path class="attribute-line" d="M470 55 V33"/>
+
+      <!-- Batch-to-waste relationship -->
+      <polygon class="relationship" points="520,455 580,425 640,455 580,485"/>
+      <text x="580" y="453" text-anchor="middle" font-size="13">CONSUMED</text>
+      <text x="580" y="468" text-anchor="middle" font-size="13">BY</text>
+      <path class="black" d="M285 434 H520"/>
+      <path class="black" d="M640 455 H790"/>
+      <text x="290" y="424" font-size="11">1</text><text x="775" y="424" font-size="11">0..n</text>
+
+      <!-- Attribute names kept visible and consistent -->
+      <text x="20" y="590" font-size="11">Batches: id, product_id, quantity, unit, purchase_date, expiry_date, cost_per_unit, supplier, created_at, updated_at</text>
+      <text x="600" y="590" font-size="11">Waste: id, product_id, batch_id, quantity, reason, estimated_loss, notes, wasted_at</text>
+    </svg>
+  </section>
+
+  <section class="page">
+    <header>
+      <h1>FreshTrack - Smart Food Expiry and Waste Prediction System</h1>
+      <div class="meta">
+        Relational Schema Diagram &nbsp; | &nbsp; Team member 1: Bhuvan Raj H (PES1UG25CS808) &nbsp; | &nbsp;
+        Team member 2: Tanmay Sridhar (PES1UG25CS849)
+      </div>
+    </header>
+    <svg viewBox="0 0 1080 620" role="img" aria-label="FreshTrack relational schema diagram">
+      <!-- app_users -->
+      <rect class="table-name" x="20" y="85" width="230" height="28"/><text x="135" y="104" text-anchor="middle" font-weight="bold">APP_USERS</text>
+      <rect class="table" x="20" y="113" width="230" height="160"/>
+      <text x="32" y="137" font-size="12">id BIGSERIAL PK</text>
+      <text x="32" y="161" font-size="12">full_name VARCHAR(120)</text>
+      <text x="32" y="185" font-size="12">email VARCHAR(255) UK</text>
+      <text x="32" y="209" font-size="12">password_hash TEXT</text>
+      <text x="32" y="233" font-size="12">role VARCHAR(20)</text>
+      <text x="32" y="257" font-size="12">created_at TIMESTAMPTZ</text>
+
+      <!-- products -->
+      <rect class="table-name" x="410" y="85" width="250" height="28"/><text x="535" y="104" text-anchor="middle" font-weight="bold">PRODUCTS</text>
+      <rect class="table" x="410" y="113" width="250" height="112"/>
+      <text x="422" y="137" font-size="12">id BIGSERIAL PK</text>
+      <text x="422" y="161" font-size="12">name VARCHAR(150) UK</text>
+      <text x="422" y="185" font-size="12">category VARCHAR(60)</text>
+      <text x="422" y="209" font-size="12">created_at TIMESTAMPTZ</text>
+      <path class="red" d="M422 113 V85"/><path class="red" d="M535 113 V85"/><path class="red" d="M648 113 V85"/>
+      <circle cx="422" cy="113" r="3" fill="#111"/><circle cx="535" cy="113" r="3" fill="#111"/><circle cx="648" cy="113" r="3" fill="#111"/>
+
+      <!-- inventory batches -->
+      <rect class="table-name" x="20" y="345" width="390" height="28"/><text x="215" y="364" text-anchor="middle" font-weight="bold">INVENTORY_BATCHES</text>
+      <rect class="table" x="20" y="373" width="390" height="208"/>
+      <text x="32" y="397" font-size="12">id BIGSERIAL PK</text>
+      <text x="32" y="421" font-size="12">product_id BIGINT FK</text>
+      <text x="32" y="445" font-size="12">quantity NUMERIC(12,2)</text>
+      <text x="32" y="469" font-size="12">unit VARCHAR(20)</text>
+      <text x="32" y="493" font-size="12">purchase_date DATE</text>
+      <text x="32" y="517" font-size="12">expiry_date DATE</text>
+      <text x="32" y="541" font-size="12">cost_per_unit NUMERIC(12,2)</text>
+      <text x="32" y="565" font-size="12">supplier VARCHAR(150)</text>
+      <text x="215" y="397" font-size="12">created_at TIMESTAMPTZ</text>
+      <text x="215" y="421" font-size="12">updated_at TIMESTAMPTZ</text>
+      <path class="black" d="M535 225 V315 H32 V373"/>
+      <path class="black" d="M535 225 V315"/>
+
+      <!-- waste records -->
+      <rect class="table-name" x="650" y="345" width="410" height="28"/><text x="855" y="364" text-anchor="middle" font-weight="bold">WASTE_RECORDS</text>
+      <rect class="table" x="650" y="373" width="410" height="208"/>
+      <text x="662" y="397" font-size="12">id BIGSERIAL PK</text>
+      <text x="662" y="421" font-size="12">product_id BIGINT FK</text>
+      <text x="662" y="445" font-size="12">batch_id BIGINT FK</text>
+      <text x="662" y="469" font-size="12">quantity NUMERIC(12,2)</text>
+      <text x="662" y="493" font-size="12">reason VARCHAR(80)</text>
+      <text x="662" y="517" font-size="12">estimated_loss NUMERIC(12,2)</text>
+      <text x="662" y="541" font-size="12">notes TEXT</text>
+      <text x="662" y="565" font-size="12">wasted_at TIMESTAMPTZ</text>
+      <path class="black" d="M535 225 V315 H662 V373"/>
+      <path class="black" d="M410 421 H410 V300 H662"/>
+
+      <text x="88" y="610" font-size="13">PRODUCTS 1 ——— has ——— n INVENTORY_BATCHES</text>
+      <text x="535" y="610" font-size="13">PRODUCTS 1 ——— identifies ——— n WASTE_RECORDS</text>
+      <text x="930" y="610" font-size="13">1 — batch_id — 0..n</text>
+    </svg>
+  </section>
+</body>
+</html>
