@@ -46,12 +46,14 @@ erDiagram
         varchar full_name
         varchar email UK
         text password_hash
+        boolean is_active
+        integer session_version
         varchar role
         timestamptz created_at
     }
 ```
 
-`app_users` exists in the schema, but the current application does not implement login or enforce its roles. It is not part of the active inventory workflow.
+Login reads accounts from `app_users`. Protected routes check the current role, active status and session version in PostgreSQL. Administrators manage staff accounts and inventory. Staff can read inventory and record waste.
 
 ## Relational data dictionary
 
@@ -82,8 +84,10 @@ erDiagram
 | `app_users` | `id` | `bigserial` | Primary key |
 | `app_users` | `full_name` | `varchar(120)` | Required user name |
 | `app_users` | `email` | `varchar(255)` | Required, unique email |
-| `app_users` | `password_hash` | `text` | Required password-hash field; no login flow currently uses it |
-| `app_users` | `role` | `varchar(20)` | Required `admin` or `staff`; not enforced by the current app |
+| `app_users` | `password_hash` | `text` | bcrypt hash checked during sign-in |
+| `app_users` | `role` | `varchar(20)` | Server-enforced `admin` or `staff` role |
+| `app_users` | `is_active` | `boolean` | Controls access for this account |
+| `app_users` | `session_version` | `integer` | Invalidates existing tokens when access or credentials change |
 | `app_users` | `created_at` | `timestamptz` | Creation timestamp |
 
 ## MongoDB event document

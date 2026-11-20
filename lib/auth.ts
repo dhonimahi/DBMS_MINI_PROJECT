@@ -1,15 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { jwtVerify, SignJWT } from 'jose';
 
 export type UserRole = 'admin' | 'staff';
-
-export type SessionUser = {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-};
-
+export type SessionUser = { id: string; name: string; email: string; role: UserRole };
 export const SESSION_COOKIE = 'freshtrack_session';
 
 function secret() {
@@ -18,34 +10,26 @@ function secret() {
   return new TextEncoder().encode(value);
 }
 
-export async function createSessionToken(user: SessionUser) {
-  return new SignJWT({ name: user.name, email: user.email, role: user.role })
+export function createSessionToken(id: string, version: number) {
+  // PostgreSQL stores the current version so an admin can invalidate an old login.
+  return new SignJWT({ version })
     .setProtectedHeader({ alg: 'HS256' })
-    .setSubject(user.id)
+    .setSubject(id)
     .setIssuedAt()
     .setExpirationTime('8h')
     .sign(secret());
 }
 
-export async function readSession(request: NextRequest): Promise<SessionUser | null> {
-  const token = request.cookies.get(SESSION_COOKIE)?.value;
+export async function readSession(token?: string) {
   if (!token) return null;
   try {
-    const { payload } = await jwtVerify(token, secret());
-    if (typeof payload.sub !== 'string' || typeof payload.name !== 'string' ||
-        typeof payload.email !== 'string' || !['admin', 'staff'].includes(String(payload.role))) {
-      return null;
-    }
-    return { id: payload.sub, name: payload.name, email: payload.email, role: payload.role as UserRole };
+    const { payload } = await jwtVerify(token, secret(), { algorithms: ['HS256'] });
+    if (!payload.sub || !/^\d+$/.test(payload.sub)) return null;
+    // Cookies from before account management use the initial version.
+    const version = payload.version ?? 0;
+    if (typeof version !== 'number' || !Number.isSafeInteger(version)) return null;
+    return { id: payload.sub, version };
   } catch {
     return null;
   }
-}
-
-export function requireRole(request: NextRequest, roles: UserRole[]) {
-  return readSession(request).then(user => user && roles.includes(user.role) ? user : null);
-}
-
-export function authorizationError() {
-  return NextResponse.json({ error: 'You must be signed in with permission to perform this action.' }, { status: 401 });
 }

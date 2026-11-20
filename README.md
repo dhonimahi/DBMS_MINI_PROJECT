@@ -12,7 +12,7 @@ A DBMS Level 3 academic project prototype using Next.js, PostgreSQL and MongoDB.
 - Sample records and viva-oriented SQL queries.
 
 ## Honest scope note
-This package is a runnable MVP, not a production deployment. It does not yet implement user login, role enforcement, inventory deletion, multi-batch waste allocation, automated email alerts, or a trained forecasting model. The UI uses transparent expiry rules and historical summaries; do not claim machine-learning prediction. Confirm whether authentication and roles are required by the faculty brief before submission. Review and personalize the report and code, run the test plan, and confirm all project requirements before submitting.
+This package is a runnable MVP, not a production deployment. It does not yet implement inventory deletion, multi-batch waste allocation, automated email alerts, or a trained forecasting model. The UI uses transparent expiry rules and historical summaries; do not claim machine-learning prediction. Review and personalize the report and code, run the test plan, and confirm all project requirements before submitting.
 
 ## Requirements
 - Node.js 20 LTS recommended
@@ -65,4 +65,8 @@ After running `sql/seed.sql`, sign in with:
 - Admin: `admin@freshtrack.local` / `Admin123!`
 - Staff: `staff@freshtrack.local` / `Staff123!`
 
-Admin and staff accounts both manage inventory. Replace demo credentials before deployment.
+Choose **Administrator** or **Staff** on the sign-in page. Both roles can view inventory, expiry risk and waste history, and record waste. Only administrators can add or edit batches and manage staff accounts.
+
+Under **Staff accounts**, an administrator can create staff, edit their names or sign-in emails, reset passwords, and deactivate or reactivate access. Staff IDs stay stable. An email change, password reset or deactivation invalidates existing staff sessions. Use **Log out** in the page header to switch accounts.
+
+For existing databases, reapply `sql/schema.sql` to add the account status and session version columns. Replace demo credentials before deployment.

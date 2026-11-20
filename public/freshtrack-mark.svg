@@ -1,0 +1,38 @@
+<!-- Define the logo on a scalable 64 by 64 canvas. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Start the shared gradient definitions. -->
+  <defs>
+    <!-- Define a diagonal gradient for the burgundy tile. -->
+    <linearGradient id="tile" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <!-- Start the gradient in a brighter berry shade. -->
+      <stop stop-color="#9c315b"/>
+      <!-- Finish the gradient in a deep burgundy shade. -->
+      <stop offset="1" stop-color="#491327"/>
+    <!-- End the tile gradient. -->
+    </linearGradient>
+    <!-- Define a vertical gradient for the fruit. -->
+    <linearGradient id="fruit" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <!-- Start the fruit with a warm peach highlight. -->
+      <stop stop-color="#ffbf85"/>
+      <!-- Finish the fruit in coral pink. -->
+      <stop offset="1" stop-color="#ff648b"/>
+    <!-- End the fruit gradient. -->
+    </linearGradient>
+  <!-- Finish the reusable SVG definitions. -->
+  </defs>
+  <!-- Draw the rounded burgundy tile with a rose border. -->
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="url(#tile)" stroke="#db7598" stroke-width="2"/>
+  <!-- Draw the apple silhouette and fill it with the fruit gradient. -->
+  <path d="M29 22c-8-7-18-2-18 8 0 10 7 19 13 18 2 0 4-2 6-2s4 2 7 2c6 0 12-9 12-18 0-10-10-15-18-8Z" fill="url(#fruit)"/>
+  <!-- Draw the apple stem with a rounded cream stroke. -->
+  <path d="M30 21c-2-4-2-8 0-12" fill="none" stroke="#ffdfab" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Draw the bright mint leaf above the apple. -->
+  <path d="M31 18c0-7 6-11 13-11-1 7-6 12-13 11Z" fill="#96edc0"/>
+  <!-- Add the small highlight on the fruit. -->
+  <path d="M17 30c0-4 3-7 6-7" fill="none" stroke="#fff2d5" stroke-width="2.25" stroke-linecap="round"/>
+  <!-- Draw the gold clock face with a dark rim. -->
+  <circle cx="46" cy="44" r="12" fill="#ffd477" stroke="#651c3b" stroke-width="2.5"/>
+  <!-- Draw the two clock hands in burgundy. -->
+  <path d="M46 38v6l4 2.5" fill="none" stroke="#59213a" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- End the SVG logo. -->
+</svg>

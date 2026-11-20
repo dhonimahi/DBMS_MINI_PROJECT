@@ -1,2 +1,4 @@
+// Convert a number or numeric string into whole Indian rupees for display, defaulting an empty value to zero.
 export function money(n: number | string) { return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number(n||0)); }
+// Compare the expiry date with local midnight, round the day difference up, and return the label and CSS class for its threshold.
 export function expiryStatus(date: string) { const today = new Date(); today.setHours(0,0,0,0); const d = new Date(date+'T00:00:00'); const days = Math.ceil((d.getTime()-today.getTime())/86400000); if(days<0)return {label:'Expired',className:'status-expired',days}; if(days<=1)return {label:'Critical',className:'status-critical',days}; if(days<=3)return {label:'High risk',className:'status-warning',days}; if(days<=7)return {label:'Warning',className:'status-warning',days}; return {label:'Safe',className:'status-safe',days}; }

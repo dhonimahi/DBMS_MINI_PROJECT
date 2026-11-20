@@ -1,132 +1,276 @@
+/** Load DM Sans for body text and Manrope for headings and metric values. */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
-:root { --ink:#15231d; --muted:#738078; --green:#1d7a55; --lime:#b9ef65; --line:#e6ebe7; --surface:#ffffff; }
+/** Define the reusable burgundy, rose, text, border and surface tokens. */
+:root { --ink:#301b25; --muted:#705d67; --burgundy:#802947; --rose:#f6b9cc; --line:#eedfe5; --surface:#ffffff; }
+/** Include padding and borders in declared widths and heights. */
 * { box-sizing:border-box; }
-html { background:#f4f7f5; }
-body { margin:0; color:var(--ink); background: radial-gradient(circle at 78% 0%, rgba(185,239,101,.16), transparent 24rem), #f4f7f5; font-family:'DM Sans',Arial,sans-serif; }
+/** Set the base background behind the page. */
+html { background:#fbf5f7; }
+/** Remove the default body margin and set the base text color, background and font. */
+body { margin:0; color:var(--ink); background: radial-gradient(circle at 78% 0%, rgba(246,185,204,.16), transparent 24rem), #fbf5f7; font-family:'DM Sans',Arial,sans-serif; }
+/** Make links inherit their surrounding colors and remove the default underline. */
 a { color:inherit; text-decoration:none; }
+/** Use the page font in all common form controls. */
 button,input,select,textarea { font-family:inherit; }
+/** Remove the default mobile tap flash from buttons and links. */
 button,a { -webkit-tap-highlight-color:transparent; }
+/** Lay out the app shell as a full-height flex container. */
 .shell { display:flex; min-height:100vh; }
-.sidebar { position:fixed; inset:0 auto 0 0; width:248px; z-index:20; display:flex; flex-direction:column; padding:30px 22px 24px; color:#f5fff9; background:linear-gradient(165deg,#173e32 0%,#0d3028 70%,#09251f 100%); box-shadow:12px 0 40px rgba(18,55,43,.08); }
+/** Fix the desktop sidebar to the left, with a burgundy gradient and shadow. */
+.sidebar { position:fixed; inset:0 auto 0 0; width:248px; z-index:20; display:flex; flex-direction:column; padding:30px 22px 24px; color:#fff5f8; background:linear-gradient(165deg,#59213a 0%,#421529 70%,#310f20 100%); box-shadow:12px 0 40px rgba(67,21,41,.08); }
+/** Draw a faint grid that fades toward the bottom without intercepting clicks. */
 .sidebar:before { content:''; position:absolute; inset:0; pointer-events:none; opacity:.16; background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px); background-size:32px 32px; mask-image:linear-gradient(to bottom,black,transparent 75%); }
+/** Align the mark and project name horizontally and leave space beneath the brand. */
 .brand { position:relative; display:flex; align-items:center; gap:11px; margin-bottom:46px; }
-.brand-mark { width:43px; height:43px; display:grid; place-items:center; border-radius:14px; color:#173e32; background:var(--lime); box-shadow:0 8px 24px rgba(185,239,101,.18); transform:rotate(-3deg); }
-.brand-mark svg { width:27px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+/** Display the FreshTrack SVG in a fixed-size box with rounded corners and a light glow. */
+.brand-mark { display:block; flex-shrink:0; width:43px; height:43px; border-radius:12px; background:url('/freshtrack-mark.svg') center / contain no-repeat; box-shadow:0 8px 24px rgba(246,185,204,.18); }
+/** Align the logo and wordmark on the sign-in page and tint the text burgundy. */
+.login-brand { display:flex; align-items:center; gap:11px; color:var(--burgundy); font:800 21px 'Manrope',sans-serif; letter-spacing:-.5px; }
+/** Style the prominent name in the sidebar. */
 .brand-copy { font-family:'Manrope',sans-serif; font-size:21px; font-weight:800; letter-spacing:-.5px; }
-.brand-copy small { display:block; margin-top:1px; color:#93b4a5; font-family:'DM Sans'; font-size:9px; font-weight:700; letter-spacing:2px; }
-.nav-label { padding:0 12px 9px; color:#789a8d; font-size:10px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; }
+/** Set the small sidebar tagline below the project name. */
+.brand-copy small { display:block; margin-top:1px; color:#e0b6c7; font-family:'DM Sans'; font-size:9px; font-weight:700; letter-spacing:2px; }
+/** Style the Workspace navigation label in small uppercase lettering. */
+.nav-label { padding:0 12px 9px; color:#d4a7ba; font-size:10px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; }
+/** Give the navigation a positioning context. */
 .nav { position:relative; }
-.nav a { height:49px; display:flex; align-items:center; gap:12px; margin:5px 0; padding:0 13px; border:1px solid transparent; border-radius:13px; color:#bfd2ca; font-size:14px; font-weight:600; transition:.2s ease; }
+/** Make each sidebar link a rounded row with enough space for an icon and label. */
+.nav a { height:49px; display:flex; align-items:center; gap:12px; margin:5px 0; padding:0 13px; border:1px solid transparent; border-radius:13px; color:#f0d3df; font-size:14px; font-weight:600; transition:.2s ease; }
+/** Brighten and shift a link slightly when hovered. */
 .nav a:hover { color:white; background:rgba(255,255,255,.055); transform:translateX(3px); }
-.nav a.active { color:white; border-color:rgba(185,239,101,.12); background:linear-gradient(90deg,rgba(185,239,101,.17),rgba(185,239,101,.06)); box-shadow:inset 3px 0 var(--lime); }
+/** Highlight the current page with a rose-tinted background and inset stripe. */
+.nav a.active { color:white; border-color:rgba(246,185,204,.12); background:linear-gradient(90deg,rgba(246,185,204,.17),rgba(246,185,204,.06)); box-shadow:inset 3px 0 var(--rose); }
+/** Center the icon in a fixed-size box. */
 .nav-icon { width:21px; height:21px; display:grid; place-items:center; }
+/** Render the navigation SVG as a stroke in the current text color with rounded ends. */
 .nav-icon svg { width:19px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
-.nav-dot { width:6px; height:6px; margin-left:auto; border-radius:50%; background:var(--lime); box-shadow:0 0 12px var(--lime); }
+/** Place a small glowing rose dot at the far end of the active link. */
+.nav-dot { width:6px; height:6px; margin-left:auto; border-radius:50%; background:var(--rose); box-shadow:0 0 12px var(--rose); }
+/** Push the sidebar status card down and align its icon with its text. */
 .sidebar-status { position:relative; display:flex; align-items:center; gap:10px; margin-top:auto; padding:13px; border:1px solid rgba(255,255,255,.07); border-radius:14px; background:rgba(255,255,255,.035); }
-.status-orbit { position:relative; width:30px; height:30px; border:1px solid rgba(185,239,101,.25); border-radius:50%; }
-.status-orbit span { position:absolute; width:8px; height:8px; border-radius:50%; inset:10px; background:var(--lime); box-shadow:0 0 12px var(--lime); }
+/** Draw the pale circular outline around the status dot. */
+.status-orbit { position:relative; width:30px; height:30px; border:1px solid rgba(246,185,204,.25); border-radius:50%; }
+/** Position the dot inside the orbit and give it a rose glow. */
+.status-orbit span { position:absolute; width:8px; height:8px; border-radius:50%; inset:10px; background:var(--rose); box-shadow:0 0 12px var(--rose); }
+/** Put each line of status text on its own row. */
 .sidebar-status strong,.sidebar-status small { display:block; }
+/** Set the main status label size. */
 .sidebar-status strong { font-size:12px; }
-.sidebar-status small { margin-top:2px; color:#91aa9f; font-size:10px; }
+/** Color and space the smaller status subtitle. */
+.sidebar-status small { margin-top:2px; color:#dfb8c9; font-size:10px; }
+/** Offset the desktop content by the sidebar width and constrain its size and padding. */
 .main { position:relative; width:calc(100% - 248px); max-width:1560px; min-height:100vh; margin-left:248px; padding:34px clamp(24px,3vw,48px) 40px; overflow:hidden; }
+/** Place noninteractive ambient decoration behind the content. */
 .ambient { position:absolute; z-index:-1; border-radius:50%; filter:blur(1px); pointer-events:none; }
-.ambient-one { width:280px; height:280px; right:-150px; top:-160px; background:rgba(185,239,101,.16); }
-.ambient-two { width:200px; height:200px; left:20%; bottom:-170px; background:rgba(43,145,105,.07); }
+/** Position the first pale rose accent partly outside the top-right corner. */
+.ambient-one { width:280px; height:280px; right:-150px; top:-160px; background:rgba(246,185,204,.16); }
+/** Position the second faint burgundy accent below the content. */
+.ambient-two { width:200px; height:200px; left:20%; bottom:-170px; background:rgba(150,54,89,.07); }
+/** Align the page heading and action side by side. */
 .top { position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:30px; }
-.eyebrow { display:flex; align-items:center; gap:8px; color:#668077; font-size:10px; font-weight:800; letter-spacing:1.6px; }
-.eyebrow span { width:20px; height:2px; border-radius:2px; background:#8bbd67; }
+/** Style the small section label at the top of a page. */
+.eyebrow { display:flex; align-items:center; gap:8px; color:#80586a; font-size:10px; font-weight:800; letter-spacing:1.6px; }
+/** Draw the short decorative line next to the section label. */
+.eyebrow span { width:20px; height:2px; border-radius:2px; background:#ba6587; }
+/** Set a responsive title size with tight spacing. */
 .title { margin:8px 0 5px; font-family:'Manrope',sans-serif; font-size:clamp(27px,3vw,38px); line-height:1.1; letter-spacing:-1.7px; }
+/** Use muted text for page subtitles and other supporting text. */
 .subtitle,.muted { color:var(--muted); font-size:14px; }
+/** Align the header actions in a row. */
 .top-actions { display:flex; align-items:center; gap:14px; }
-.user-avatar { width:42px; height:42px; display:grid; place-items:center; border:3px solid white; border-radius:50%; color:white; background:linear-gradient(135deg,#276d53,#0f4032); box-shadow:0 4px 16px rgba(20,64,48,.16); font-family:'Manrope'; font-size:12px; font-weight:800; }
+/** Center the initials in a burgundy circle with a white rim. */
+.user-avatar { width:42px; height:42px; display:grid; place-items:center; border:3px solid white; border-radius:50%; color:white; background:linear-gradient(135deg,#943653,#561c36); box-shadow:0 4px 16px rgba(86,28,54,.16); font-family:'Manrope'; font-size:12px; font-weight:800; }
+/** Line 88 — Override the initial body background with a stack of gradients. */
+/** Line 89 — Add a soft rose glow near the upper right. */
+/** Line 90 — Add a muted burgundy glow near the lower left. */
+/** Line 91 — Set the pale blush base and finish the background rule. */
 body { background:
-  radial-gradient(circle at 72% 12%, rgba(207,246,139,.22), transparent 18rem),
-  radial-gradient(circle at 38% 84%, rgba(88,185,145,.08), transparent 28rem),
-  linear-gradient(135deg,#f7f9f7 0%,#eef4f0 100%); }
+  radial-gradient(circle at 72% 12%, rgba(247,191,210,.22), transparent 18rem),
+  radial-gradient(circle at 38% 84%, rgba(174,85,121,.08), transparent 28rem),
+  linear-gradient(135deg,#fdf8fa 0%,#f6eaf0 100%); }
+/** Give the content area a 3D perspective for transformed descendants. */
 .main { perspective:1200px; }
-.dashboard-hero { position:relative; min-height:270px; margin:4px 0 20px; overflow:hidden; border-radius:28px; background:#174b3b; box-shadow:0 28px 70px rgba(24,71,55,.2),inset 0 1px rgba(255,255,255,.22); transform-style:preserve-3d; }
-.dashboard-hero:before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,rgba(9,48,38,.94) 0%,rgba(17,66,52,.82) 38%,rgba(29,95,73,.08) 70%),radial-gradient(circle at 12% 20%,rgba(185,239,101,.18),transparent 15rem); }
+/** Create the rounded burgundy hero container and give it depth with a shadow. */
+.dashboard-hero { position:relative; min-height:270px; margin:4px 0 20px; overflow:hidden; border-radius:28px; background:#6a2947; box-shadow:0 28px 70px rgba(94,33,62,.2),inset 0 1px rgba(255,255,255,.22); transform-style:preserve-3d; }
+/** Overlay a dark-to-transparent gradient so the hero text stays legible over the art. */
+.dashboard-hero:before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,rgba(58,16,35,.94) 0%,rgba(84,25,52,.82) 38%,rgba(126,43,79,.08) 70%),radial-gradient(circle at 12% 20%,rgba(246,185,204,.18),transparent 15rem); }
+/** Draw faint decorative rings at the hero's upper right. */
 .dashboard-hero:after { content:''; position:absolute; width:360px; height:360px; right:-90px; top:-190px; border:1px solid rgba(255,255,255,.13); border-radius:50%; box-shadow:0 0 0 45px rgba(255,255,255,.025),0 0 0 90px rgba(255,255,255,.018); }
+/** Position the banner text toward the left and above its decorative layers. */
 .hero-copy { position:absolute; z-index:3; left:44px; top:50%; width:42%; transform:translateY(-50%) translateZ(35px); color:white; }
-.hero-kicker { display:inline-block; margin-bottom:14px; color:#c7ef72; font-size:10px; font-weight:800; letter-spacing:2px; }
+/** Style the small rose label above the headline. */
+.hero-kicker { display:inline-block; margin-bottom:14px; color:#f8c2d4; font-size:10px; font-weight:800; letter-spacing:2px; }
+/** Set the Manrope headline and its maximum line width. */
 .hero-copy strong { display:block; max-width:420px; font-family:'Manrope'; font-size:34px; line-height:1.07; letter-spacing:-1.5px; }
-.hero-copy p { margin:12px 0 20px; color:#c7d7d0; font-size:13px; }
-.hero-copy a { display:inline-flex; align-items:center; gap:10px; color:#173e32; border-radius:12px; padding:10px 14px; background:#c5ef72; box-shadow:0 10px 28px rgba(9,43,33,.28); font-size:12px; font-weight:800; }
+/** Use pale text and spacing for the supporting risk message. */
+.hero-copy p { margin:12px 0 20px; color:#f6dbe6; font-size:13px; }
+/** Style the inventory link as a rose call-to-action. */
+.hero-copy a { display:inline-flex; align-items:center; gap:10px; color:#59213a; border-radius:12px; padding:10px 14px; background:#f8c2d4; box-shadow:0 10px 28px rgba(52,15,32,.28); font-size:12px; font-weight:800; }
+/** Animate the arrow sliding right on hover. */
 .hero-copy a span { font-size:18px; transition:transform .2s; }.hero-copy a:hover span { transform:translateX(4px); }
+/** Load the existing fruit artwork into the banner, with slight saturation and a floating animation. */
 .hero-art { position:absolute; z-index:2; width:58%; height:100%; right:-3%; bottom:-8px; background:url('/freshtrack-scene.svg') center/cover no-repeat; filter:saturate(1.12) contrast(1.03); transform:translateZ(20px); animation:floatScene 7s ease-in-out infinite; }
-.hero-glow { position:absolute; z-index:4; right:11%; bottom:18px; width:150px; height:22px; border-radius:50%; background:#071d17; opacity:.5; filter:blur(13px); transform:rotate(-6deg); }
+/** Add a blurred shadow near the bottom of the hero art. */
+.hero-glow { position:absolute; z-index:4; right:11%; bottom:18px; width:150px; height:22px; border-radius:50%; background:#2b0a19; opacity:.5; filter:blur(13px); transform:rotate(-6deg); }
+/** Lay out the four dashboard KPI cards in equal columns. */
 .cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin:24px 0; }
-.card,.panel { position:relative; border:1px solid rgba(220,226,222,.9); border-radius:19px; background:rgba(255,255,255,.94); box-shadow:0 10px 35px rgba(34,67,53,.055); backdrop-filter:blur(12px); }
-.card { min-height:154px; padding:21px 22px; overflow:hidden; border-color:rgba(255,255,255,.9); background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(247,251,248,.92)); box-shadow:0 18px 45px rgba(30,72,55,.09),inset 0 1px rgba(255,255,255,.8); transition:transform .25s ease,box-shadow .25s ease; }
-.card:hover { transform:translateY(-5px) rotateX(1deg); box-shadow:0 24px 55px rgba(30,72,55,.14); }
-.card:nth-child(1):after { background:#dff6a8; } .card:nth-child(2):after { background:#8cd8bc; opacity:.45; } .card:nth-child(4):after { background:#ffcba8; opacity:.5; }
-.card:after { content:''; position:absolute; width:82px; height:82px; right:-35px; bottom:-43px; border-radius:50%; background:rgba(185,239,101,.13); }
-.card:nth-child(3) { background:linear-gradient(145deg,#173f34,#10342a); border-color:#173f34; color:white; }
-.card:nth-child(3) .metric-label,.card:nth-child(3) .metric-note { color:#bfd0c9; }
-.metric-label { color:#78847d; font-size:12px; font-weight:700; letter-spacing:.2px; }
+/** Share the rounded border, translucent white surface and shadow across cards and panels. */
+.card,.panel { position:relative; border:1px solid rgba(233,218,226,.9); border-radius:19px; background:rgba(255,255,255,.94); box-shadow:0 10px 35px rgba(78,35,55,.055); backdrop-filter:blur(12px); }
+/** Give metric cards a minimum height, a blush gradient and hover transitions. */
+.card { min-height:154px; padding:21px 22px; overflow:hidden; border-color:rgba(255,255,255,.9); background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(252,246,249,.92)); box-shadow:0 18px 45px rgba(93,35,61,.09),inset 0 1px rgba(255,255,255,.8); transition:transform .25s ease,box-shadow .25s ease; }
+/** Lift a metric card slightly when hovered. */
+.card:hover { transform:translateY(-5px) rotateX(1deg); box-shadow:0 24px 55px rgba(93,35,61,.14); }
+/** Give the first, second and fourth cards separate corner-accent colors. */
+.card:nth-child(1):after { background:#f5c9d9; } .card:nth-child(2):after { background:#d694b0; opacity:.45; } .card:nth-child(4):after { background:#ffcba8; opacity:.5; }
+/** Draw the default circular accent in a card's lower-right corner. */
+.card:after { content:''; position:absolute; width:82px; height:82px; right:-35px; bottom:-43px; border-radius:50%; background:rgba(246,185,204,.13); }
+/** Emphasize the third card with dark burgundy and white text. */
+.card:nth-child(3) { background:linear-gradient(145deg,#60213e,#45152b); border-color:#60213e; color:white; }
+/** Lighten the third card's label and note for contrast. */
+.card:nth-child(3) .metric-label,.card:nth-child(3) .metric-note { color:#f0d1de; }
+/** Style the small text that names a metric. */
+.metric-label { color:#705b66; font-size:12px; font-weight:700; letter-spacing:.2px; }
+/** Make the displayed metric value large and bold. */
 .metric { margin:13px 0 7px; font-family:'Manrope'; font-size:34px; font-weight:800; line-height:1; letter-spacing:-1.5px; }
-.metric-note { color:#89948d; font-size:11px; }
+/** Use smaller muted text for notes below a metric. */
+.metric-note { color:#78626e; font-size:11px; }
+/** Lay out the overview panels in two columns with more space for the watchlist. */
 .grid2 { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(300px,.85fr); gap:18px; }
+/** Add consistent padding inside each content panel. */
 .panel { padding:22px; }
+/** Style panel headings and space them from their contents. */
 .panel h2 { margin:0 0 18px; font-family:'Manrope'; font-size:17px; letter-spacing:-.4px; }
+/** Allow horizontal scrolling for tables on narrow screens. */
 .table-wrap { overflow-x:auto; border-radius:12px; }
+/** Stretch tables to fill their container and collapse adjacent borders. */
 table { width:100%; border-collapse:collapse; font-size:13px; }
-th { padding:11px 12px; color:#819087; background:#f5f7f5; font-size:10px; font-weight:800; letter-spacing:.7px; text-transform:uppercase; }
+/** Style the table headers as uppercase text on blush. */
+th { padding:11px 12px; color:#74606b; background:#faf2f6; font-size:10px; font-weight:800; letter-spacing:.7px; text-transform:uppercase; }
+/** Round the outer ends of the header row. */
 th:first-child { border-radius:9px 0 0 9px; } th:last-child { border-radius:0 9px 9px 0; }
-td { padding:14px 12px; border-bottom:1px solid #edf0ed; white-space:nowrap; }
-tbody tr { transition:.15s ease; } tbody tr:hover { background:#fafcfb; }
+/** Space table cells, separate rows and keep cell content on one line. */
+td { padding:14px 12px; border-bottom:1px solid #f0e5eb; white-space:nowrap; }
+/** Tint a table row on hover. */
+tbody tr { transition:.15s ease; } tbody tr:hover { background:#fdf8fa; }
+/** Set the padding, rounding and text for a compact status badge. */
 .status { display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border-radius:20px; font-size:10px; font-weight:800; }
+/** Draw a status dot using the badge's own text color. */
 .status:before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; }
+/** Use a red tint for expired and critical stock. */
 .status-critical,.status-expired { background:#feece8; color:#bd4939; }
+/** Use amber for warning and high-risk status. */
 .status-warning { background:#fff4d8; color:#a56d08; }
+/** Use green for safe stock. */
 .status-safe { background:#e8f7ee; color:#27805b; }
-.btn { min-height:41px; display:inline-flex; align-items:center; justify-content:center; border:1px solid #1c7052; border-radius:11px; padding:10px 16px; color:white; background:linear-gradient(135deg,#267d58,#176244); box-shadow:0 7px 18px rgba(29,122,85,.17); font-size:12px; font-weight:800; cursor:pointer; transition:.2s ease; }
-.btn:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(29,122,85,.23); }
+/** Style the main action buttons with a burgundy gradient and centered text. */
+.btn { min-height:41px; display:inline-flex; align-items:center; justify-content:center; border:1px solid #782340; border-radius:11px; padding:10px 16px; color:white; background:linear-gradient(135deg,#963553,#74203d); box-shadow:0 7px 18px rgba(128,41,71,.17); font-size:12px; font-weight:800; cursor:pointer; transition:.2s ease; }
+/** Raise the button and deepen its shadow on hover. */
+.btn:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(128,41,71,.23); }
+/** Fade disabled buttons, show the disabled cursor and cancel the hover movement. */
 .btn:disabled { opacity:.55; cursor:not-allowed; transform:none; }
-.btn.secondary { border-color:#dde5e0; color:#315d4b; background:white; box-shadow:none; }
-.btn.secondary:hover { border-color:#bfcfc6; background:#f7faf8; }
+/** Use a white surface and outline for secondary buttons. */
+.btn.secondary { border-color:#eadce3; color:#70304b; background:white; box-shadow:none; }
+/** Tint a secondary button on hover. */
+.btn.secondary:hover { border-color:#d9b7c6; background:#fcf4f8; }
+/** Use a red accent for a button with the danger modifier. */
 .btn.danger { border-color:#a33f32; background:#a33f32; }
+/** Lay out action buttons in a row that can wrap. */
 .actions { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+/** Place fields in an evenly spaced two-column grid. */
 .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
-.field label { display:block; margin-bottom:8px; color:#53645b; font-size:11px; font-weight:800; }
-.field input,.field select,.field textarea { width:100%; height:43px; border:1px solid #dde4df; border-radius:11px; padding:0 13px; color:#26362e; outline:none; background:#fcfdfc; font-size:13px; transition:.2s ease; }
+/** Put small bold labels on their own line above controls. */
+.field label { display:block; margin-bottom:8px; color:#624c57; font-size:11px; font-weight:800; }
+/** Give form controls a shared height, padding and outline color. */
+.field input,.field select,.field textarea { width:100%; height:43px; border:1px solid #eadce3; border-radius:11px; padding:0 13px; color:#382530; outline:none; background:#fffafb; font-size:13px; transition:.2s ease; }
+/** Let text areas size naturally and give their contents top padding. */
 .field textarea { height:auto; padding-top:11px; }
-.field input:hover,.field select:hover,.field textarea:hover { border-color:#c4d0c9; }
-.field input:focus,.field select:focus,.field textarea:focus { border-color:#67a985; background:white; box-shadow:0 0 0 3px rgba(78,158,119,.1); }
+/** Tint a control's border when hovered. */
+.field input:hover,.field select:hover,.field textarea:hover { border-color:#dcbfcd; }
+/** Show a burgundy focus border and a soft ring. */
+.field input:focus,.field select:focus,.field textarea:focus { border-color:#ac5477; background:white; box-shadow:0 0 0 3px rgba(172,84,119,.1); }
+/** Let a full-width field span both form columns. */
 .field.full { grid-column:1/-1; }
+/** Style a standard notice with a pale green success surface. */
 .notice { margin:14px 0; padding:13px 15px; border:1px solid #d6eadb; border-radius:11px; color:#255f42; background:#edf7ef; font-size:13px; }
+/** Use a pale red surface and darker red text for errors. */
 .error { border-color:#f4d2cd; color:#8e2b20; background:#fff0ee; }
-.empty { padding:28px; text-align:center; color:#879088; }
-.small { color:#819087; font-size:11px; }
-.footer { margin-top:28px; color:#849088; font-size:12px; }
+/** Center empty-state text inside its container. */
+.empty { padding:28px; text-align:center; color:#78636e; }
+/** Use a smaller, muted style for auxiliary detail. */
+.small { color:#74606b; font-size:11px; }
+/** Give footer text spacing and a muted color. */
+.footer { margin-top:28px; color:#76616c; font-size:12px; }
 
+/** Move the hero illustration up and back down over its animation cycle. */
 @keyframes floatScene { 0%,100% { transform:translateY(0) translateZ(20px); } 50% { transform:translateY(-8px) translateZ(20px); } }
+/** Define an entrance animation that fades and slides content slightly upward. */
 @keyframes reveal { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+/** Apply the entrance animation to the main page elements. */
 .main > .top,.main > .cards,.main > .grid2,.main > .panel,.main > .notice { animation:reveal .45s ease both; }
+/** Stagger the appearance of cards and panels after the header. */
 .main > .cards { animation-delay:.05s; } .main > .grid2,.main > .panel { animation-delay:.1s; }
 
+/** At medium widths, use two metric columns and stack the lower panels. */
 @media(max-width:1050px) { .cards { grid-template-columns:repeat(2,minmax(0,1fr)); } .grid2 { grid-template-columns:1fr; } }
+/** Start the layout overrides for phone-width screens. */
 @media(max-width:760px) {
+  /** Move the sidebar to the bottom and make it a full-width horizontal navigation bar. */
   .shell { display:block; } .sidebar { position:fixed; top:auto; width:100%; height:72px; padding:8px 12px; flex-direction:row; align-items:center; border-top:1px solid rgba(255,255,255,.08); }
+  /** Shrink the logo and hide extra sidebar text and indicators. */
   .brand { margin:0 0 0 3px; } .brand-mark { width:38px; height:38px; } .brand-copy { display:none; } .nav-label,.sidebar-status,.nav-dot { display:none; }
+  /** Fit links into compact icon-only buttons aligned to the right. */
   .nav { height:100%; flex:1; display:flex; justify-content:flex-end; gap:4px; } .nav a { width:54px; height:54px; justify-content:center; margin:0; padding:0; border-radius:13px; } .nav a span:not(.nav-icon) { display:none; } .nav a.active { box-shadow:none; }
+  /** Expand content to full width and leave space for the fixed bottom bar. */
   .main { width:100%; min-height:calc(100vh - 72px); margin:0 0 72px; padding:22px 16px 28px; }
-  .dashboard-hero { min-height:390px; border-radius:22px; } .dashboard-hero:before { background:linear-gradient(180deg,rgba(9,48,38,.96),rgba(17,66,52,.88) 58%,rgba(29,95,73,.08)); }
+  /** Use a taller hero and a top-to-bottom overlay on small screens. */
+  .dashboard-hero { min-height:390px; border-radius:22px; } .dashboard-hero:before { background:linear-gradient(180deg,rgba(58,16,35,.96),rgba(84,25,52,.88) 58%,rgba(126,43,79,.08)); }
+  /** Move hero copy to the top and put the artwork below it. */
   .hero-copy { left:24px; right:24px; top:25px; width:auto; transform:none; } .hero-copy strong { font-size:28px; } .hero-art { width:100%; height:70%; right:-5%; bottom:-5%; }
+  /** Adjust heading alignment, action spacing and button padding for phones. */
   .top { align-items:flex-start; margin-bottom:22px; } .top-actions { gap:8px; } .top-actions .btn { padding:10px 12px; }
+  /** Reduce the heading and metric sizes, compact the cards and hide the initials. */
   .title { font-size:27px; letter-spacing:-1px; } .subtitle { max-width:300px; } .user-avatar { display:none; } .cards { gap:10px; margin:18px 0; } .card { min-height:140px; padding:17px; } .metric { font-size:29px; }
+  /** Reduce panel padding and stack the form fields in one column. */
   .panel { padding:17px; } .form-grid { grid-template-columns:1fr; } .field.full { grid-column:auto; }
+/** Finish the phone-width overrides. */
 }
+/** At the narrowest widths, compact the cards and turn the header action into a plus button. */
 @media(max-width:430px) { .cards { grid-template-columns:1fr 1fr; } .card { min-height:132px; } .metric { font-size:26px; } .top-actions .btn { font-size:0; width:42px; padding:0; } .top-actions .btn:after { content:'+'; font-size:22px; } }
+/** Turn off animations and transitions when the user requests reduced motion. */
 @media(prefers-reduced-motion:reduce) { *,*:before,*:after { animation:none!important; transition:none!important; } }
 
+/** Center the sign-in card in a full-height layout. */
 .login-shell { min-height:100vh; display:grid; place-items:center; padding:24px; }
-.login-card { width:min(420px,100%); display:grid; gap:16px; padding:34px; border:1px solid rgba(220,226,222,.9); border-radius:22px; background:rgba(255,255,255,.96); box-shadow:0 24px 70px rgba(30,72,55,.14); }
+/** Constrain the card width and apply its padding, white surface and shadow. */
+.login-card { width:min(420px,100%); display:grid; gap:16px; padding:34px; border:1px solid rgba(233,218,226,.9); border-radius:22px; background:rgba(255,255,255,.96); box-shadow:0 24px 70px rgba(93,35,61,.14); }
+/** Style the sign-in title. */
 .login-card h1 { margin:4px 0 0; font-family:'Manrope',sans-serif; font-size:32px; }
+/** Give the sign-in description a muted color. */
 .login-card p { margin:0 0 6px; color:var(--muted); }
+/** Stack the label and input with a small gap. */
 .login-card label { display:grid; gap:7px; font-size:13px; font-weight:700; }
+/** Style the sign-in inputs using the theme border. */
 .login-card input { width:100%; height:44px; border:1px solid var(--line); border-radius:10px; padding:0 12px; outline:none; }
-.login-card input:focus { border-color:#78ad91; box-shadow:0 0 0 3px rgba(120,173,145,.14); }
+/** Show a burgundy border and ring on focused sign-in fields. */
+.login-card input:focus { border-color:#ac5477; box-shadow:0 0 0 3px rgba(172,84,119,.14); }
+/** Display sign-in errors as a pale red callout. */
 .login-card .form-error { color:#b42318; border-radius:9px; padding:10px 12px; background:#fff1f0; font-size:13px; }
-.primary-button { height:46px; border:0; border-radius:11px; color:white; background:#1d7a55; cursor:pointer; font-weight:800; }
+/** Style the sign-in button with a solid burgundy fill. */
+.primary-button { height:46px; border:0; border-radius:11px; color:white; background:#802947; cursor:pointer; font-weight:800; }
+
+/* Account identity and access controls follow the shared burgundy theme. */
+.role-picker { display:flex; align-items:center; gap:10px; margin:0; padding:0; border:0; }
+.role-picker legend { margin-bottom:7px; font-size:13px; font-weight:700; }
+.login-card .role-picker label { flex:1; display:flex; align-items:center; gap:8px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; cursor:pointer; }
+.login-card .role-picker label:has(:checked) { border-color:var(--burgundy); color:var(--burgundy); background:#fff5f8; }
+.login-card .role-picker input { width:16px; height:16px; margin:0; accent-color:var(--burgundy); }
+.account-label { font-weight:700; font-size:13px; }
+.account-label small { display:block; text-transform:capitalize; color:var(--muted); }
+.sign-out { padding:9px 13px; border:1px solid var(--line); border-radius:10px; background:white; color:var(--burgundy); white-space:nowrap; font-weight:700; cursor:pointer; }
+.staff-editor { margin-bottom:20px; }
+.staff-heading,.staff-actions { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.staff-heading { justify-content:space-between; margin-bottom:18px; }
+.staff-heading h2 { margin:0; }
+.staff-actions .btn { min-height:36px; }
+@media(max-width:760px) { .account-label { display:none; } .top-actions { flex-wrap:wrap; justify-content:flex-end; } }

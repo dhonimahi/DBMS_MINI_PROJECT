@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { readSession } from '@/lib/auth';
+import { NextResponse } from 'next/server';
+import { currentAccount } from '@/lib/account';
 
-export async function GET(request: NextRequest) {
-  const user = await readSession(request);
-  return user
-    ? NextResponse.json(user)
-    : NextResponse.json({ error: 'Authentication required.' }, { status: 401 });
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
+  const account = await currentAccount();
+  return account ? NextResponse.json(account) : NextResponse.json({ error: 'Please sign in.' }, { status: 401 });
 }
