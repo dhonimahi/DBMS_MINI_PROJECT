@@ -3,7 +3,7 @@
 **Course:** DBMS Experiential Learning — Level 3  
 **Institution:** PES University (edit if your course section requires another format)  
 **Team members:** Bhuvan Raj H (PES1UG25CS808), Tanmay Sridhar (PES1UG25CS849)
-**Faculty:** [Add faculty name]  
+
 **Academic year:** 2026–27
 
 ## 1. Abstract
